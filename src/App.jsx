@@ -1,41 +1,46 @@
-import React from 'react'
+import { useCallback, useState } from 'react'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
+import SmoothScroll from './components/SmoothScroll'
+import Intro from './components/Intro'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import Marquee from './components/Marquee'
+import About from './components/About'
 import Services from './components/Services'
-import Portfolio from './components/Portfolio'
+import Work from './components/Work'
+import Process from './components/Process'
+import Offers from './components/Offers'
+import Faq from './components/Faq'
 import Contact from './components/Contact'
-import ThreeScene from './components/ThreeScene'
+import Footer from './components/Footer'
+import { ReadyContext, shouldPlayIntro } from './lib/motion'
 
-function App() {
+export default function App() {
+  const [intro, setIntro] = useState(shouldPlayIntro)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const finishIntro = useCallback(() => setIntro(false), [])
+
   return (
-    <div className="app-container">
-      <ThreeScene />
-      
-      <Header />
-      
-      <main>
-        <section id="accueil">
-          <Hero />
-        </section>
-        
-        <section id="services">
-          <Services />
-        </section>
-        
-        <section id="portfolio">
-          <Portfolio />
-        </section>
-        
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
+    <MotionConfig reducedMotion="user">
+      <SmoothScroll locked={intro || menuOpen}>
+        <AnimatePresence>{intro && <Intro key="intro" onFinish={finishIntro} />}</AnimatePresence>
 
-      <footer style={{ padding: '4rem 10%', borderTop: '1px solid var(--glass-border)', textAlign: 'center', opacity: 0.5, fontSize: '0.9rem' }}>
-        © {new Date().getFullYear()} YAKIRIX. Tous droits réservés.
-      </footer>
-    </div>
+        <ReadyContext.Provider value={!intro}>
+          <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          <main id="top">
+            <Hero />
+            <Marquee />
+            <About />
+            <Services />
+            <Work />
+            <Process />
+            <Offers />
+            <Faq />
+            <Contact />
+          </main>
+          <Footer />
+        </ReadyContext.Provider>
+      </SmoothScroll>
+    </MotionConfig>
   )
 }
-
-export default App

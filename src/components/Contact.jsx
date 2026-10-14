@@ -1,219 +1,107 @@
-import React, { useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { ArrowUpRight, CircleAlert, CircleCheck } from 'lucide-react'
 import emailjs from '@emailjs/browser'
+import { Button, Label, Reveal, SplitText } from './ui'
+
+const PROJECT_TYPES = ['Site web', 'Application mobile', 'Plateforme SaaS', 'Conseil / maintenance', 'Autre']
 
 export default function Contact() {
-  const form = useRef()
-  const [status, setStatus] = useState('idle') // idle, sending, success, error
+  const form = useRef(null)
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
 
   const sendEmail = (e) => {
     e.preventDefault()
     setStatus('sending')
 
-    // Configuration EmailJS réelle
-    // Remplace 'YOUR_SERVICE_ID' et 'YOUR_TEMPLATE_ID' par tes IDs
-    emailjs.sendForm(
-      'service_nmsbhim', 
-      'template_cqqi86j', 
-      form.current, 
-      'c9Ynk0AsGjpL8Y31P' // Ta clé publique
-    )
-    .then((result) => {
-        console.log('SUCCESS!', result.text)
-        setStatus('success')
-        form.current.reset()
-        setTimeout(() => setStatus('idle'), 5000)
-    }, (error) => {
-        console.log('FAILED...', error.text)
-        setStatus('error')
-        setTimeout(() => setStatus('idle'), 5000)
-    })
+    emailjs
+      .sendForm('service_nmsbhim', 'template_cqqi86j', form.current, 'c9Ynk0AsGjpL8Y31P') // clé publique EmailJS
+      .then(
+        () => {
+          setStatus('success')
+          form.current?.reset()
+        },
+        (error) => {
+          console.error('EmailJS :', error?.text ?? error)
+          setStatus('error')
+        },
+      )
   }
 
   return (
-    <div>
-      <div className="contact-grid">
+    <section id="contact" className="contact" aria-labelledby="contact-title">
+      <div className="container contact-grid">
         <div>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1.5rem', lineHeight: 1.2 }}>
-            Parlons de votre <span className="gradient-text">Projet</span>
-          </h2>
-          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.1rem)', opacity: 0.7, marginBottom: '3rem', lineHeight: 1.6 }}>
-            Vous avez une idée ? Nous avons l'expertise pour la transformer en succès technologique. Contactez-nous dès aujourd'hui.
-          </p>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ 
-                padding: '1rem', 
-                background: 'var(--glass-bg)', 
-                borderRadius: '15px', 
-                color: 'var(--accent-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Mail size={24} />
-              </div>
+          <Reveal y={16}><Label className="on-dark">Contact</Label></Reveal>
+          <SplitText id="contact-title" text="Parlons de *votre projet.*" />
+          <Reveal delay={0.15}>
+            <p className="contact-lead">
+              Racontez-nous votre idée : nous revenons vers vous sous 24h avec une première analyse et un devis gratuit.
+            </p>
+            <div className="contact-info">
+              <a href="mailto:contact@yakirix.com">
+                <span><small>Email</small>contact@yakirix.com</span>
+                <ArrowUpRight size={20} />
+              </a>
+              <a href="tel:+221770000000">
+                <span><small>Téléphone</small>+221 77 000 00 00</span>
+                <ArrowUpRight size={20} />
+              </a>
               <div>
-                <div style={{ fontSize: '0.85rem', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '1px' }}>Email</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 500 }}>contact@yakirix.com</div>
+                <span><small>Adresse</small>Dakar, Sénégal</span>
               </div>
             </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ 
-                padding: '1rem', 
-                background: 'var(--glass-bg)', 
-                borderRadius: '15px', 
-                color: 'var(--accent-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Phone size={24} />
-              </div>
-              <div>
-                <div style={{ fontSize: '0.85rem', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '1px' }}>Téléphone</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 500 }}>+221 77 000 00 00</div>
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ 
-                padding: '1rem', 
-                background: 'var(--glass-bg)', 
-                borderRadius: '15px', 
-                color: 'var(--accent-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <MapPin size={24} />
-              </div>
-              <div>
-                <div style={{ fontSize: '0.85rem', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '1px' }}>Localisation</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 500 }}>Dakar, Sénégal</div>
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </div>
-        
-        <div style={{ position: 'relative' }}>
-          <motion.form 
-            ref={form}
-            onSubmit={sendEmail}
-            className="glass-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ fontSize: '0.9rem', opacity: 0.7, fontWeight: 500 }}>Nom complet</label>
-              <input 
-                type="text" 
-                name="user_name"
-                required
-                style={{ 
-                  background: 'rgba(255,255,255,0.05)', 
-                  border: '1px solid var(--glass-border)', 
-                  padding: '1rem', 
-                  borderRadius: '12px',
-                  color: '#fff',
-                  outline: 'none'
-                }} placeholder="Votre nom" 
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ fontSize: '0.9rem', opacity: 0.7, fontWeight: 500 }}>Email</label>
-              <input 
-                type="email" 
-                name="user_email"
-                required
-                style={{ 
-                  background: 'rgba(255,255,255,0.05)', 
-                  border: '1px solid var(--glass-border)', 
-                  padding: '1rem', 
-                  borderRadius: '12px',
-                  color: '#fff',
-                  outline: 'none'
-                }} placeholder="votre@email.com" 
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ fontSize: '0.9rem', opacity: 0.7, fontWeight: 500 }}>Message</label>
-              <textarea 
-                name="message"
-                required
-                rows="5" 
-                style={{ 
-                  background: 'rgba(255,255,255,0.05)', 
-                  border: '1px solid var(--glass-border)', 
-                  padding: '1rem', 
-                  borderRadius: '12px',
-                  color: '#fff',
-                  outline: 'none',
-                  resize: 'none'
-                }} placeholder="Dites-nous tout..." 
-              />
-            </div>
-            
-            <button 
-              type="submit" 
-              className="btn-primary" 
-              disabled={status === 'sending'}
-              style={{ 
-                marginTop: '1rem', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                gap: '0.8rem',
-                opacity: status === 'sending' ? 0.7 : 1
-              }}
-            >
-              {status === 'sending' ? 'Envoi en cours...' : 'Envoyer le message'}
-              <Send size={18} />
-            </button>
-          </motion.form>
 
-          {/* Feedback Overlay */}
-          <AnimatePresence>
-            {status === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'rgba(5,5,5,0.9)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: '24px',
-                  zIndex: 10,
-                  textAlign: 'center',
-                  padding: '2rem'
-                }}
-              >
-                <CheckCircle size={60} color="var(--accent-color)" style={{ marginBottom: '1rem' }} />
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Message Envoyé !</h3>
-                <p style={{ opacity: 0.7 }}>Merci, nous vous répondrons très prochainement.</p>
-                <button 
-                  onClick={() => setStatus('idle')}
-                  className="btn-secondary" 
-                  style={{ marginTop: '2rem', padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}
-                >
-                  Fermer
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        <Reveal delay={0.1}>
+          <form ref={form} className="form" onSubmit={sendEmail}>
+            <div className="form-row">
+              <div className="field">
+                <label htmlFor="user_name">Nom complet</label>
+                <input id="user_name" name="user_name" type="text" autoComplete="name" required placeholder="Aminata Diop" />
+              </div>
+              <div className="field">
+                <label htmlFor="user_email">Email</label>
+                <input id="user_email" name="user_email" type="email" autoComplete="email" required placeholder="vous@entreprise.com" />
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="user_phone">Téléphone <span className="optional">(facultatif)</span></label>
+              <input id="user_phone" name="user_phone" type="tel" autoComplete="tel" placeholder="+221 77 123 45 67" />
+            </div>
+            <fieldset className="field">
+              <legend>Type de projet</legend>
+              <div className="choices">
+                {PROJECT_TYPES.map((t, i) => (
+                  <label key={t} className="choice">
+                    <input type="radio" name="project_type" value={t} defaultChecked={i === 0} />
+                    <span>{t}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <div className="field">
+              <label htmlFor="message">Votre projet</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Décrivez votre idée, vos objectifs, vos délais…" />
+            </div>
+
+            <div className="form-footer">
+              <Button type="submit" variant="light" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Envoi en cours…' : 'Envoyer le message'}
+              </Button>
+              <div aria-live="polite">
+                {status === 'success' && (
+                  <p className="form-status is-ok"><CircleCheck size={18} />Message envoyé, nous vous répondons très vite.</p>
+                )}
+                {status === 'error' && (
+                  <p className="form-status is-error"><CircleAlert size={18} />L’envoi a échoué. Écrivez-nous à contact@yakirix.com.</p>
+                )}
+                {status === 'idle' && <p className="form-note">Réponse sous 24h ouvrées.</p>}
+              </div>
+            </div>
+          </form>
+        </Reveal>
       </div>
-    </div>
+    </section>
   )
 }
