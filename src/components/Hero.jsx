@@ -117,7 +117,6 @@ function Showreel({ ready }) {
       transition={{ duration: 1.3, delay: 0.55, ease: EASE }}
     >
       <motion.div className="showreel" style={{ scale, borderRadius: radius }}>
-        <div className="showreel-bg" aria-hidden="true" />
         <span className="showreel-caption">Réalisations · ÉBËNA 2027 et Samalocation</span>
 
         <motion.div className="sr-browser" style={{ y: yBrowser }}>
