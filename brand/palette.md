@@ -10,13 +10,12 @@ Symbole : « Baobab signal » — un Y en forme de baobab, le point terracotta e
 | Fond sombre | Nuit | #071F17 |
 | Accent vif (rare) | Ocre | #E8A33D |
 
-## Typographies
+## Typographie
 
-- **Logo** : Space Grotesk Bold en capitales « YAKIRIX », interlettrage 0,12 em, vectorisé (plus besoin de la police pour l'afficher). Le baobab repose sur la ligne de base des lettres.
-- **Site — texte et titres** : Geist (variable), titres en 600 avec un interlettrage serré.
-- **Site — mots d'accent** : Instrument Serif italique, en terracotta.
+Une seule police partout : **Space Grotesk**.
 
-Les deux polices du site sont auto-hébergées via npm (`@fontsource-variable/geist`, `@fontsource/instrument-serif`).
+- **Logo** : Space Grotesk Bold en capitales « YAKIRIX », interlettrage 0,12 em, vectorisé. Le baobab repose sur la ligne de base des lettres.
+- **Site et supports** : Space Grotesk (variable) pour les titres, les textes et les mots d'accent (en terracotta). Auto-hébergée via `@fontsource-variable/space-grotesk`.
 
 ## Fichiers
 

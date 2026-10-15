@@ -25,7 +25,7 @@ export function Reveal({ children, delay = 0, y = 32, className, as = 'div', ...
 }
 
 // « Tout votre numérique, *sous un même toit.* » → mots masqués qui montent un à un,
-// le passage entre astérisques est en serif italique (accent).
+// le passage entre astérisques est mis en couleur (accent).
 function parse(text) {
   return text
     .split('*')
