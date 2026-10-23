@@ -4,9 +4,9 @@ import samalocationMobile from '../assets/projects/samalocation-mobile.webp'
 import leralDesktop from '../assets/projects/leralscolaire-desktop.webp'
 import leralPoles from '../assets/projects/leralscolaire-poles.webp'
 import leralMobile from '../assets/projects/leralscolaire-mobile.webp'
-import ebenaDesktop from '../assets/projects/ebena-desktop.webp'
-import ebenaUnivers from '../assets/projects/ebena-univers.webp'
-import ebenaMobile from '../assets/projects/ebena-mobile.webp'
+import mahwaDesktop from '../assets/projects/mahwa-desktop.webp'
+import mahwaActions from '../assets/projects/mahwa-actions.webp'
+import mahwaMobile from '../assets/projects/mahwa-mobile.webp'
 import cargoDesktop from '../assets/projects/cargonotify-desktop.webp'
 import cargoMobile from '../assets/projects/cargonotify-mobile.webp'
 
@@ -36,18 +36,18 @@ export const PROJECTS = {
     mobile: leralMobile,
     status: { bg: '#0A102B', ink: '#FFFFFF' },
   },
-  ebena: {
-    name: 'ÉBËNA 2027',
-    url: 'https://hub-ebena.netlify.app/',
-    domain: 'hub-ebena.netlify.app',
+  mahwa: {
+    name: 'Mahwa Fondation',
+    url: 'https://storied-profiterole-cc5b81.netlify.app/',
+    domain: 'storied-profiterole-cc5b81.netlify.app',
     category: 'Sites web',
-    sector: 'Événementiel · Nantes',
-    description: 'Site du grand rendez-vous de la création africaine en Europe : programme, pavillons, exposants et inscriptions.',
-    bg: '#33190A',
-    desktop: ebenaDesktop,
-    extra: ebenaUnivers,
-    mobile: ebenaMobile,
-    status: { bg: '#FDF5E8', ink: '#311502' },
+    sector: 'Solidarité · Dakar',
+    description: 'Site de la fondation : actions solidaires (Ramadan, repas chauds, éducation), galerie et dons en ligne.',
+    bg: '#DCEBDD',
+    desktop: mahwaDesktop,
+    extra: mahwaActions,
+    mobile: mahwaMobile,
+    status: { bg: '#0C1D10', ink: '#FFFFFF' },
   },
   cargonotify: {
     name: 'CargoNotify',
@@ -63,4 +63,4 @@ export const PROJECTS = {
   },
 }
 
-export const PROJECT_LIST = [PROJECTS.samalocation, PROJECTS.leralscolaire, PROJECTS.ebena, PROJECTS.cargonotify]
+export const PROJECT_LIST = [PROJECTS.samalocation, PROJECTS.leralscolaire, PROJECTS.mahwa, PROJECTS.cargonotify]

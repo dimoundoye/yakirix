@@ -6,15 +6,15 @@ import { Browser, Phone } from './mockups/Devices'
 import { MonitorScreen } from './mockups/Screens'
 import { PROJECTS } from '../data/projects'
 
-const { ebena, leralscolaire, cargonotify } = PROJECTS
+const { mahwa, leralscolaire, cargonotify } = PROJECTS
 
 /* ───────────── Visuels de chaque service (projets réels) ───────────── */
 
 function WebVisual() {
   return (
     <div className="sv sv-web">
-      <Browser url={ebena.domain} image={ebena.extra} alt="Site ÉBËNA 2027, section des pavillons" />
-      <Phone image={ebena.mobile} status={ebena.status} alt="Site ÉBËNA 2027 sur mobile" />
+      <Browser url={mahwa.domain} image={mahwa.extra} alt="Site de Mahwa Fondation, section des actions" />
+      <Phone image={mahwa.mobile} status={mahwa.status} alt="Site de Mahwa Fondation sur mobile" />
     </div>
   )
 }
@@ -50,9 +50,9 @@ function CareVisual() {
 const SERVICES = [
   {
     title: 'Sites web',
-    text: 'Sites vitrines, sites événementiels et boutiques en ligne : rapides, bien référencés et pensés pour transformer vos visiteurs en clients.',
+    text: 'Sites vitrines, sites associatifs et boutiques en ligne : rapides, bien référencés et pensés pour transformer vos visiteurs en clients.',
     items: ['Design sur mesure et responsive', 'Référencement naturel (SEO)', 'Paiement en ligne et mobile money', 'Espace d’administration simple'],
-    example: 'Exemple : ÉBËNA 2027',
+    example: 'Exemple : Mahwa Fondation',
     theme: 'light',
     Visual: WebVisual,
   },

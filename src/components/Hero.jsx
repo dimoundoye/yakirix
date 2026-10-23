@@ -7,7 +7,7 @@ import { PROJECTS } from '../data/projects'
 import { EASE, ReadyContext } from '../lib/motion'
 
 const WORDS = ['sites web', 'applications', 'plateformes SaaS', 'boutiques en ligne']
-const { ebena, samalocation } = PROJECTS
+const { mahwa, samalocation } = PROJECTS
 
 const lines = {
   hidden: {},
@@ -31,7 +31,7 @@ export default function Hero() {
       <div className="container">
         <h1 id="hero-title" className="hero-title">
           <span className="sr-only">
-            Nous concevons des sites web, des applications, des plateformes SaaS et des boutiques en ligne qui font la différence.
+            Nous concevons des sites web, des applications, des logiciels, des plateformes SaaS et des boutiques en ligne qui font la différence.
           </span>
           <motion.span aria-hidden="true" className="hero-lines" initial="hidden" animate={ready ? 'show' : 'hidden'} variants={lines}>
             <span className="hero-line"><motion.span className="hero-line-inner" variants={line}>Nous concevons des</motion.span></span>
@@ -117,10 +117,10 @@ function Showreel({ ready }) {
       transition={{ duration: 1.3, delay: 0.55, ease: EASE }}
     >
       <motion.div className="showreel" style={{ scale, borderRadius: radius }}>
-        <span className="showreel-caption">Réalisations · ÉBËNA 2027 et Samalocation</span>
+        <span className="showreel-caption">Réalisations · Mahwa Fondation et Samalocation</span>
 
         <motion.div className="sr-browser" style={{ y: yBrowser }}>
-          <Browser url={ebena.domain} image={ebena.desktop} alt="Page d’accueil du site ÉBËNA 2027" eager />
+          <Browser url={mahwa.domain} image={mahwa.desktop} alt="Page d’accueil du site de Mahwa Fondation" eager />
         </motion.div>
         <motion.div className="sr-phone" style={{ y: yPhone }}>
           <Phone image={samalocation.mobile} status={samalocation.status} alt="Samalocation sur mobile" eager />
